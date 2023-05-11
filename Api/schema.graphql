@@ -5,6 +5,8 @@ interface AccountEvent {
     accountId: ID! #TODO: make a reference
     timestamp: DateTime!
     pointChange: Int!
+
+    remainingBalance: Int!
 }
 
 type DepositPointsEvent implements AccountEvent {
@@ -12,6 +14,7 @@ type DepositPointsEvent implements AccountEvent {
     accountId: ID!
     timestamp: DateTime!
     pointChange: Int!
+    remainingBalance: Int!
 }
 
 type RedeemPointsEvent implements AccountEvent {
@@ -19,6 +22,7 @@ type RedeemPointsEvent implements AccountEvent {
     accountId: ID!
     timestamp: DateTime!
     pointChange: Int!
+    remainingBalance: Int!
 
     productId: ID! #TODO: make a reference
 }
@@ -28,6 +32,7 @@ type BalanceAdjustmentEvent implements AccountEvent {
     accountId: ID!
     timestamp: DateTime!
     pointChange: Int!
+    remainingBalance: Int!
 
     reason: String!
 }
