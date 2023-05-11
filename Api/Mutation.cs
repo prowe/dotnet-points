@@ -12,8 +12,8 @@ public class Mutation
         _logger.LogInformation("Deposit Event input: {}", input);
         var depositEvent = new DepositPointsEvent
         {
-            AccountId = input.accountId,
-            PointChange = input.amount,
+            AccountId = input.AccountId,
+            PointChange = input.Amount,
         };
         dbContext.Add(depositEvent);
         await dbContext.SaveChangesAsync();
@@ -23,27 +23,48 @@ public class Mutation
     public async Task<RedeemPointsEvent> RedeemPoints(RedeemPointsInput input, [Service] ApiDbContext dbContext)
     {
         _logger.LogInformation("Redeem Event input: {}", input);
-        var price = Math.Abs(input.productId.GetHashCode()) % 20 + 1;
-        var depositEvent = new RedeemPointsEvent
+        var price = Math.Abs(input.ProductId.GetHashCode()) % 20 + 1;
+        var redeemEvent = new RedeemPointsEvent
         {
-            AccountId = input.accountId,
+            AccountId = input.AccountId,
             PointChange = -1 * price,
-            ProductId = input.productId
+            ProductId = input.ProductId
         };
-        dbContext.Add(depositEvent);
+        dbContext.Add(redeemEvent);
         await dbContext.SaveChangesAsync();
-        return depositEvent;
+        return redeemEvent;
+    }
+
+    public async Task<BalanceAdjustmentEvent> AdjustBalance(BalanceAdjustmentInput input, [Service] ApiDbContext dbContext)
+    {
+        _logger.LogInformation("Adjust balance: {}", input);
+        var adjustEvent = new BalanceAdjustmentEvent
+        {
+            AccountId = input.AccountId,
+            PointChange = input.Amount,
+            Reason = input.Reason
+        };
+        dbContext.Add(adjustEvent);
+        await dbContext.SaveChangesAsync();
+        return adjustEvent;
     }
 }
 
 public class DepositPointsInput
 {
-    public Guid accountId { get; set; }
-    public int amount { get; set; }
+    public Guid AccountId { get; set; }
+    public int Amount { get; set; }
 }
 
 public class RedeemPointsInput
 {
-    public Guid accountId { get; set; }
-    public Guid productId { get; set; }
+    public Guid AccountId { get; set; }
+    public Guid ProductId { get; set; }
+}
+
+public class BalanceAdjustmentInput
+{
+    public Guid AccountId { get; set; }
+    public int Amount { get; set; }
+    public string Reason { get; set; }
 }

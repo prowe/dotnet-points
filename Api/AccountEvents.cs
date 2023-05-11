@@ -15,3 +15,8 @@ public class RedeemPointsEvent : AccountEvent
 {
     public Guid ProductId { get; set; }
 }
+
+public class BalanceAdjustmentEvent: AccountEvent
+{
+    public string Reason { get; set; }
+}

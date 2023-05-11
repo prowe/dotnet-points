@@ -18,5 +18,8 @@ public class ApiDbContext : DbContext
 
         modelBuilder.Entity<RedeemPointsEvent>()
             .HasBaseType<AccountEvent>();
+
+        modelBuilder.Entity<BalanceAdjustmentEvent>()
+            .HasBaseType<AccountEvent>();
     }
 }

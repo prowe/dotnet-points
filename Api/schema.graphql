@@ -23,6 +23,15 @@ type RedeemPointsEvent implements AccountEvent {
     productId: ID! #TODO: make a reference
 }
 
+type BalanceAdjustmentEvent implements AccountEvent {
+    id: ID!
+    accountId: ID!
+    timestamp: DateTime!
+    pointChange: Int!
+
+    reason: String!
+}
+
 type Query {
     accountEvents(accountId: ID!): [AccountEvent!]!
 }
@@ -37,8 +46,16 @@ input RedeemPointsInput {
     productId: ID!
 }
 
+input BalanceAdjustmentInput {
+    accountId: ID!
+    amount: Int!
+    reason: String!
+}
+
 type Mutation {
     depositPoints(input: DepositPointsInput!): DepositPointsEvent!
 
     redeemPoints(input: RedeemPointsInput!): RedeemPointsEvent!
+
+    adjustBalance(input: BalanceAdjustmentInput!): BalanceAdjustmentEvent!
 }
