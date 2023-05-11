@@ -7,7 +7,7 @@ public class Query
     {
         var events = await dbContext.AccountEvents
             .Where(e => e.AccountId == accountId)
-            .OrderByDescending(e => e.Timestamp)
+            // .OrderByDescending(e => e.Timestamp)
             .ToListAsync();
         return events;
     }
