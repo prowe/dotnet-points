@@ -1,8 +1,14 @@
+using Microsoft.EntityFrameworkCore;
+
 public class Query
 {
-    public async Task<IEnumerable<AccountEvent>> AccountEvents(Guid accountId)
+    public async Task<IEnumerable<AccountEvent>> AccountEvents(
+        Guid accountId, [Service] ApiDbContext dbContext)
     {
-        var events = Enumerable.Empty<AccountEvent>();
+        var events = await dbContext.AccountEvents
+            .Where(e => e.AccountId == accountId)
+            .OrderByDescending(e => e.Timestamp)
+            .ToListAsync();
         return events;
     }
 }

@@ -1,14 +1,26 @@
+scalar DateTime @specifiedBy(url: "https://www.graphql-scalars.com/date-time/")
 
 interface AccountEvent {
     id: ID!
-    accountId: ID!
+    accountId: ID! #TODO: make a reference
+    timestamp: DateTime!
     pointChange: Int!
 }
 
 type DepositPointsEvent implements AccountEvent {
     id: ID!
     accountId: ID!
+    timestamp: DateTime!
     pointChange: Int!
+}
+
+type RedeemPointsEvent implements AccountEvent {
+    id: ID!
+    accountId: ID!
+    timestamp: DateTime!
+    pointChange: Int!
+
+    productId: ID! #TODO: make a reference
 }
 
 type Query {
@@ -20,6 +32,13 @@ input DepositPointsInput {
     amount: Int!
 }
 
+input RedeemPointsInput {
+    accountId: ID!
+    productId: ID!
+}
+
 type Mutation {
     depositPoints(input: DepositPointsInput!): DepositPointsEvent!
+
+    redeemPoints(input: RedeemPointsInput!): RedeemPointsEvent!
 }
