@@ -1,0 +1,8 @@
+
+type AccountEvent {
+    id: ID!
+}
+
+type Query {
+    accountEvents(accountId: ID!): [AccountEvent!]!
+}
