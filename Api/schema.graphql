@@ -1,8 +1,25 @@
 
-type AccountEvent {
+interface AccountEvent {
     id: ID!
+    accountId: ID!
+    pointChange: Int!
+}
+
+type DepositPointsEvent implements AccountEvent {
+    id: ID!
+    accountId: ID!
+    pointChange: Int!
 }
 
 type Query {
     accountEvents(accountId: ID!): [AccountEvent!]!
+}
+
+input DepositPointsInput {
+    accountId: ID!
+    amount: Int!
+}
+
+type Mutation {
+    depositPoints(input: DepositPointsInput!): DepositPointsEvent!
 }
