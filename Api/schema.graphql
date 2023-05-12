@@ -37,8 +37,15 @@ type BalanceAdjustmentEvent implements AccountEvent {
     reason: String!
 }
 
+type Account {
+    id: ID!
+    balance: Int!
+}
+
 type Query {
     accountEvents(accountId: ID!): [AccountEvent!]!
+
+    accountBalances: [Account!]!
 }
 
 input DepositPointsInput {

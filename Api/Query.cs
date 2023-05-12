@@ -11,4 +11,9 @@ public class Query
             .ToListAsync();
         return events;
     }
+
+    public async Task<IEnumerable<CurrentAccountBalanceProjection>> AccountBalances([Service] ApiDbContext dbContext)
+    {
+        return await dbContext.CurrentAccountBalanceProjections.ToListAsync();
+    }
 }

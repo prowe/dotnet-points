@@ -1,0 +1,53 @@
+query Transactions {
+  accountEvents(accountId: "40a41385-fb62-40ae-bf5c-a7bba8db10c3") {
+    __typename
+    id
+    timestamp
+    pointChange
+    remainingBalance
+    ... on RedeemPointsEvent {
+      productId
+    }
+    ... on BalanceAdjustmentEvent {
+      reason
+    }
+  }
+}
+
+mutation Deposit {
+  depositPoints(
+    input: { accountId: "40a41385-fb62-40ae-bf5c-a7bba8db10c3", amount: 35 }
+  ) {
+    id
+    accountId
+    timestamp
+    pointChange
+  }
+}
+
+mutation Redemption {
+  redeemPoints(
+    input: {
+      accountId: "40a41385-fb62-40ae-bf5c-a7bba8db10c3"
+      productId: "a97cb327-c53e-478e-b704-8bb4187dd5c9"
+    }
+  ) {
+    id
+    accountId
+    timestamp
+    pointChange
+    productId
+  }
+}
+
+mutation Adjustment {
+  adjustBalance(
+    input: {
+      accountId: "40a41385-fb62-40ae-bf5c-a7bba8db10c3"
+      amount: -18
+      reason: "Debited instead of credited for redemption"
+    }
+  ) {
+    id
+  }
+}

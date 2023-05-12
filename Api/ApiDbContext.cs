@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class ApiDbContext : DbContext
 {
     public DbSet<AccountEvent> AccountEvents { get; set; }
+    public DbSet<CurrentAccountBalanceProjection> CurrentAccountBalanceProjections { get; set; }
     
     public ApiDbContext(DbContextOptions<ApiDbContext> options): base(options) {}
 
